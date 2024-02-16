@@ -1,0 +1,11 @@
+Sign-up page
+
+http://localhost:5173/Sign-up
+
+
+http://localhost:5173
+it will take you to the root 
+
+Sign in page
+
+http://localhost:5173/sign-in

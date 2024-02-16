@@ -1,0 +1,7 @@
+codes to run on terminal every time the project open
+
+npm run
+(start the host)
+
+npm run dev 
+( open the host on the web page)
