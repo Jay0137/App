@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form"
 import { SignupValidation } from "@/lib/validation"
 import { z } from "zod"
 import { Loader } from "lucide-react"
+import { createUserAccount } from "@/lib/appwrite/api"
 
 const SignupForm = () => {
   const isLoading = false;
@@ -18,15 +19,16 @@ const SignupForm = () => {
       name: '',
       username: '',
       email: '',
-      pasword: '',
+      password: '',
     },
   })
 
   // 2. define a submit handler.
   async function onSubmit(values: z.infer<typeof SignupValidation>) {
     //create a user account.
-   // const newUser = await createUserAccount(values);
-   // yet to do
+   const newUser = await createUserAccount(values);
+   
+   console.log(newUser)
   }
 
   return (
@@ -76,7 +78,7 @@ const SignupForm = () => {
           />
           <FormField // #3 email
             control={form.control}
-            name="name"
+            name="email"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>email</FormLabel>
@@ -93,15 +95,15 @@ const SignupForm = () => {
             />
             <FormField // #4 password
             control={form.control}
-            name="name"
+            name="password"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>password</FormLabel>
                 <FormControl>
-                  <Input type="text" className="shad-input" {...field} />
+                  <Input type="password" className="shad-input" {...field} />
                 </FormControl>
                 <FormDescription>
-                  This is your pasword.
+                  This is your password.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
