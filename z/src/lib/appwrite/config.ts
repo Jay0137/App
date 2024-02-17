@@ -14,3 +14,5 @@ client.setEndpoint(appwriteConfig.url);
  export const database = new Databases(client);
  export const storage = new Storage(client);
  export const avatars = new Avatars(client);
+ 
+ // export the information to Appwrite to save the Account 

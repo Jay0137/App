@@ -17,5 +17,5 @@ export async function createUserAccount(user: INewUser) {
         console.log(error);
         return error;        
     }
-    
+ // extract the information of the new account and save it on appwrite
 }

@@ -29,6 +29,7 @@ const SignupForm = () => {
    const newUser = await createUserAccount(values);
    
    console.log(newUser)
+   // tranfers the information put by the user to api.ts
   }
 
   return (
