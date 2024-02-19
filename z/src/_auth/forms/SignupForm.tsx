@@ -1,6 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod"
+
 import { Link } from 'react-router-dom'
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form"
+
+import { useToast } from "@/components/ui/use-toast"
+
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useForm } from "react-hook-form"
@@ -10,6 +14,7 @@ import { Loader } from "lucide-react"
 import { createUserAccount } from "@/lib/appwrite/api"
 
 const SignupForm = () => {
+  const { toast } = useToast();
   const isLoading = false;
 
   // 1. definiton your form.
@@ -28,9 +33,14 @@ const SignupForm = () => {
     //create a user account.
    const newUser = await createUserAccount(values);
    
-   console.log(newUser)
-   // tranfers the information put by the user to api.ts
-  }
+    if(!newUser) {
+      return toast({
+        title: 'Sign up failed. Please try again.'
+      });
+    }
+
+    // const session = await signInAccount()
+   }
 
   return (
     <Form {...form}>
@@ -52,9 +62,7 @@ const SignupForm = () => {
                 <FormControl>
                   <Input type="text" className="shad-input" {...field} />
                 </FormControl>
-                <FormDescription>
-                  This is your name.
-                </FormDescription>
+
                 <FormMessage />
               </FormItem>
             )}
@@ -69,9 +77,7 @@ const SignupForm = () => {
                 <FormControl>
                   <Input type="text" className="shad-input" {...field} />
                 </FormControl>
-                <FormDescription>
-                  This is your public display username.
-                </FormDescription>
+
                 <FormMessage />
               </FormItem>
             )}
@@ -86,9 +92,7 @@ const SignupForm = () => {
                 <FormControl>
                   <Input type="text" className="shad-input" {...field} />
                 </FormControl>
-                <FormDescription>
-                  This is your email.
-                </FormDescription>
+
                 <FormMessage />
               </FormItem>
             )}
@@ -103,9 +107,7 @@ const SignupForm = () => {
                 <FormControl>
                   <Input type="password" className="shad-input" {...field} />
                 </FormControl>
-                <FormDescription>
-                  This is your password.
-                </FormDescription>
+
                 <FormMessage />
               </FormItem>
             )}
