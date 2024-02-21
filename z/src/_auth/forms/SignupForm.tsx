@@ -45,12 +45,12 @@ const SignupForm = () => {
   return (
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
-        <img src="/assets/images/logo.svg" alt="logo" />
+        <img src="/assets/images/logo.png" alt="logo" />
 
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
           Create a new account</h2>
-          <p className="text-light-3 small-medium md:base-regular mt-2">
-            Too use //NameApp//, please enter your account</p>
+          <p className="text-black small-medium md:base-regular mt-2">
+            Too use Shapes, please create your account</p>
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 w-full mt-4">
           <FormField // #1 name
@@ -120,9 +120,9 @@ const SignupForm = () => {
               </div>
             ):"Sign up"}
           </Button>
-          <p className="text-small-regular text-light-2 text-center mt-2">
+          <p className="text-small-regular text-black text-center mt-2">
             Already have a account? 
-            <Link to="/sign-in" className="text-primary-500" text-small-semibold ml-1> Log in</Link>
+            <Link to="/sign-in" className="text-primary-500" text-small-semibold ml-1> Sign in</Link>
           </p>
         </form>
       </div>
