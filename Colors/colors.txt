@@ -1,0 +1,12 @@
+bg 
+E0E0E0
+
+text
+black
+
+buttons
+0080FF
+
+
+links
+00FFFF
