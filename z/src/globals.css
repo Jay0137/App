@@ -10,7 +10,7 @@
   }
 
   body {
-    @apply bg-white text-black min-h-screen font-inter;
+    @apply bg-gray-200 text-black min-h-screen font-inter;
   }
 }
 
@@ -258,7 +258,7 @@
   }
 
   .shad-input {
-    @apply h-12 bg-off-white border-none placeholder:text-light-4 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 !important;
+    @apply h-10 bg-off-white border-none placeholder:text-light-4 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 !important;
   }
 
   .shad-textarea {
@@ -277,4 +277,16 @@
   .shad-button_ghost {
     @apply flex gap-4 items-center justify-start hover:bg-transparent hover:text-white !important;
   }
+
+  /* testing */
+  /*Error mesage*/
+  .error-message {
+    @apply text-red;
+  }
+
+  /*box
+  .box-border{
+    @apply bg-black;
+  }*/
+
 }

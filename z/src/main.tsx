@@ -7,4 +7,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
         <App />
     </BrowserRouter>
+
+    // make to route sign in or sign up pages
 )  

@@ -8,10 +8,9 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useForm } from "react-hook-form"
-import { SignupValidation } from "@/lib/validation"
+import { SigninValidation } from "@/lib/validation"
 import { z } from "zod"
 import { Loader } from "lucide-react"
-import { createUserAccount } from "@/lib/appwrite/api"
 
 
 const SigninForm = () => {
@@ -19,21 +18,21 @@ const SigninForm = () => {
   const isLoading = false;
 
   // 1. definiton your form.
-  const form = useForm<z.infer<typeof SignupValidation>>({
-    resolver: zodResolver(SignupValidation),
+  const form = useForm<z.infer<typeof SigninValidation>>({
+    resolver: zodResolver(SigninValidation),
     defaultValues: {
-      username: '',
       email: '',
       password: '',
     },
   })
 
   // 2. define a submit handler.
-  async function onSubmit(values: z.infer<typeof SignupValidation>) {
-    //create a user account.
-   const newUser = await createUserAccount(values);
+  async function onSubmit(values: z.infer<typeof SigninValidation>) {
+    //log into user account.
+   const User = await FIndUserAccount(values);
+   // need working
    
-    if(!newUser) {
+    if(!User) {
       return toast({
         title: 'Sign in failed. Please try again.'
       });
