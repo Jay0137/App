@@ -11,11 +11,14 @@ import { useForm } from "react-hook-form"
 import { SignupValidation } from "@/lib/validation"
 import { z } from "zod"
 import { Loader } from "lucide-react"
-import { createUserAccount } from "@/lib/appwrite/api"
+import { useSignInAccount, userCreateUserAccount } from "@/lib/React-query/queriesAndMutations"
 
 const SignupForm = () => {
   const { toast } = useToast();
-  const isLoading = false;
+
+  const { mutateAsync: createUserAccount, isLoading: isCreatingAccount } = userCreateUserAccount();
+
+  const {mutateAsync: signInAccount, isLoading: isSigningin } = useSignInAccount();
 
   // 1. definiton your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
@@ -28,6 +31,7 @@ const SignupForm = () => {
     },
   })
 
+
   // 2. define a submit handler.
   async function onSubmit(values: z.infer<typeof SignupValidation>) {
     //create a user account.
@@ -39,7 +43,16 @@ const SignupForm = () => {
       });
     }
 
-    // const session = await signInAccount()
+     const session = await signInAccount({
+      email: values.email,
+      password: values.password,
+     })
+
+     if(!session) {
+      return toast({ title: 'Sign up failed. Please try again.'})
+     }
+
+
    }
 
   return (
@@ -114,7 +127,7 @@ const SignupForm = () => {
             
           />
           <Button type="submit" className="shad-button_primary">
-            {isLoading ? (
+            {isCreatingUser ? (
               <div className="flex-center gap-2">
                 <Loader /> Loading...
               </div>

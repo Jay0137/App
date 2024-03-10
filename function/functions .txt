@@ -1,0 +1,7 @@
+functions 
+
+createUserAccount = crate user account  
+
+onSubmit = validate the account infromation
+
+saveUser to DB = save the new account information on the database
