@@ -4,4 +4,49 @@ createUserAccount = crate user account
 
 onSubmit = validate the account infromation
 
-saveUser to DB = save the new account information on the database
+saveUsertoDB = save the new account information on the database
+
+SignInAccount
+
+GetAccount
+
+getCurrentUser
+
+signOutAccount
+
+CreatePost
+
+uploadFile
+
+getFilePreview
+
+deleteFile
+
+searchPosts
+
+getInfinitePosts
+
+getPostbyId
+
+updatePost
+
+deletePost
+
+likePost
+
+savePost
+
+deleteSavedPost
+
+getUserPosts
+
+getRecentPost
+
+
+getUsers
+
+getUserById
+
+updateUser
+
+
