@@ -1,0 +1,58 @@
+functions 
+
+createUserAccount = crate user account giving it a unique Id for the user(email, password, name)
+
+onSubmit = validate the account infromation that is correct and submit it to the database to save it or make a session for current user
+
+saveUsertoDB = save the new account information using the unique ID (email, name, username, password) on the database 
+
+
+
+SignInAccount = sign in to the user account using the email and password and create a session that the program will verify the information given by the user and validate it with the database if is the result is true it will log in if is false it will give a error and stay in sign in page.
+
+GetAccount = extract the user account information to sign up 
+
+getCurrentUser = it will stay loged into the account that was currently used in case the program can't validate the account information will give a error and redirect to sign in page.
+
+signOutAccount = it will delete the session for currentUser and getAccount otherswise will give a error.
+
+CreatePost = uploads the post file to the database creating a FileUrl and it will extract the url to show a preview of the post and will have the option to delete the post or submit it it will also convert tags into arrays, the post will have the information of the use that postt it the imageUrl and will cretate a id for the image teh location were was posted and the tags if the post were to be deleted before posting all the information will be Deleted.
+
+uploadFile = it will create a file and save it into a storage inside the database using a unique ID.
+
+getFilePreview = it will get the fileUrl as a string and show a preview of the file directly from the storage on the database. 
+
+deleteFile = it will delete the file of the post from the storage on the database.
+
+searchPosts = it will search the port using a string that will look into the database and search all the collection fo the post that are related
+
+getInfinitePosts = it will show all the post on the home page and it will update every time there a new post or when the user refresh the page 
+
+getPostbyId = it will get the post from the storage in the database using the ID of the post
+
+updatePost = it will update the file of the post inside the storage on the database and it will create a new url for the file will also do the conversion of the post tags as arrays, will also safeli delete the old file and in case it gives a error updating the post it will mantain the old post and delete the changes that were goin to be made.
+
+deletePost = it will delte the post using the post ID and the image ID(if there any) the post and file will be deleted from the storage on the database using postID and fileID.
+
+likePost = the likes will be saved on a array linked to the postID and it will be storage on the database and constantly updated every time someone give a like to the post.
+
+savePost = it will be constantly updated on the database and the save collection using the user id and the post id.
+
+deleteSavedPost = the post that was saved it will be deleted from the saved collection id and the saved record.
+
+getUserPosts = it will get all the post made by the user Id saved on the database and the post collection.
+
+getRecentPost = it will get the most popular post by likes from the database.
+
+
+getUsers = it wil get all the user from the database and show it on as a collection of all the user that are related 
+
+getUserById = it will get the user by ID from the database and the user collections.
+
+updateUser = it will update the user Profile if there are changes
+1. Profile picture will update the imageUrl and imageID if is going tho change the image
+2. the name of the user will change on the database keeping the userID intact
+3. the bio of the user if there any changes it will update 
+if the information tho change was canceled the new information will be deleted and keep the old information, if is sucessfuly updated it will safely delete the old file after making the changes.
+
+
