@@ -1,45 +1,56 @@
-import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Link, useNavigate } from 'react-router-dom';
 
-import { Link } from 'react-router-dom'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} 
+from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Loader } from "@/components/shared";
+import { useToast } from "@/components/ui/use-toast";
 
-import { useToast } from "@/components/ui/use-toast"
-
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { useForm } from "react-hook-form"
-import { SigninValidation } from "@/lib/validation"
-import { z } from "zod"
-import { Loader } from "lucide-react"
-
+import { SigninValidation } from "@/lib/validation";
+import { useUserContext } from "@/context/AuthContext";
+import { useSignInAccount } from "@/lib/react-query/queries";
 
 const SigninForm = () => {
   const { toast } = useToast();
-  const isLoading = false;
+  const navigate = useNavigate();
+  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
 
-  // 1. definiton your form.
-  const form = useForm<z.infer<typeof SigninValidation>>({
-    resolver: zodResolver(SigninValidation),
-    defaultValues: {
-      email: '',
-      password: '',
-    },
-  })
+   // Query
+   const { mutateAsync: signInAccount, isPending } = useSignInAccount();
 
-  // 2. define a submit handler.
-  async function onSubmit(values: z.infer<typeof SigninValidation>) {
-    //log into user account.
-   const User = await FIndUserAccount(values);
-   // need working
-   
-    if(!User) {
-      return toast({
-        title: 'Sign in failed. Please try again.'
-      });
-    }
-
-    // const session = await signInAccount()
-   }
+   const form = useForm<z.infer<typeof SigninValidation>>({
+     resolver: zodResolver(SigninValidation),
+     defaultValues: {
+       email: "",
+       password: "",
+     },
+   });
+ 
+   const handleSignin = async (user: z.infer<typeof SigninValidation>) => {
+     const session = await signInAccount(user);
+ 
+     if (!session) {
+       toast({ title: "Login failed. Please try again." });
+       
+       return;
+     }
+ 
+     const isLoggedIn = await checkAuthUser();
+ 
+     if (isLoggedIn) {
+       form.reset();
+ 
+       navigate("/");
+     } else {
+       toast({ title: "Login failed. Please try again.", });
+       
+       return;
+     }
+   };
 
   return (
     <Form {...form}>
@@ -47,11 +58,15 @@ const SigninForm = () => {
       <img src="/assets/images/logo-bg-0.png" alt="logo" />
 
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
-          Sign in into your account</h2>
-          <p className="text-black small-medium md:base-regular mt-2">
-            Too use Shapes, please enter your account</p>
+          Sign in into your account
+        </h2>
 
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 w-full mt-4">
+        <p className="text-black small-medium md:base-regular mt-2">
+          Too use Shapes, please enter your account
+        </p>
+
+        <form onSubmit={form.handleSubmit(handleSignin)} 
+          className="flex flex-col gap-5 w-full mt-4">
             
           <FormField // #2 username
             control={form.control}
@@ -65,10 +80,10 @@ const SigninForm = () => {
 
                 <FormMessage />
               </FormItem>
-            )}
-            
+            )}        
           />
-            <FormField // #4 password
+
+          <FormField // #4 password
             control={form.control}
             name="password"
             render={({ field }) => (
@@ -81,25 +96,29 @@ const SigninForm = () => {
                 <FormMessage />
               </FormItem>
             )}
-            
           />
+
           <Button type="submit" className="shad-button_primary">
-            {isLoading ? (
+            {isPending || isUserLoading ? (
               <div className="flex-center gap-2">
                 <Loader /> Loading...
               </div>
-            ):"Sign in"}
+            ): (
+              "Sign in"
+            )}
           </Button>
 
           <p className="text-small-regular text-black text-center mt-2">
-            Dont have a account? 
-            <Link to="/sign-up" className="text-primary-500" text-small-semibold ml-1> Sign up</Link>
-          </p>
-          
+            Don't have a account? 
+            <Link to="/sign-up" 
+            className="text-primary-500" text-small-semibold ml-1> 
+              Sign up
+            </Link>
+          </p> 
         </form>
       </div>
     </Form>
-  )
-}
+  );
+};
 
 export default SigninForm;

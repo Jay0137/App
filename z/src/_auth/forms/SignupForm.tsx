@@ -1,71 +1,80 @@
-import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from 'react-router-dom';
+import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Link, useNavigate } from 'react-router-dom'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} 
+from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Loader } from "@/components/shared";
+import { useToast } from "@/components/ui/use-toast";
 
-import { useToast } from "@/components/ui/use-toast"
-
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { useForm } from "react-hook-form"
-import { SignupValidation } from "@/lib/validation"
-import { z } from "zod"
-import { Loader } from "lucide-react"
-import { useSignInAccount, userCreateUserAccount } from "@/lib/React-query/queriesAndMutations"
-import { useUserContext } from "@/context/AuthContext"
+import { useCreateUserAccount, useSignInAccount } 
+from "@/lib/react-query/queries";
+import { SignupValidation } from "@/lib/validation";
+import { useUserContext } from "@/context/AuthContext";
 
 const SignupForm = () => {
   const { toast } = useToast();
-  const { checkAuthUser, isLoading: isUserLoading } = useUserContext(); 
-  const { mutateAsync: createUserAccount, isPending: isCreatingAccount } = userCreateUserAccount();
   const navigate = useNavigate();
+  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
 
-  const {mutateAsync: signInAccount, isPending: isSigningin } = useSignInAccount();
-
-  // 1. definiton your form.
+  // Form
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
     defaultValues: {
-      name: '',
-      username: '',
-      email: '',
-      password: '',
+      name: "",
+      username: "",
+      email: "",
+      password: "",
     },
   })
 
+  // Queries
+  const { mutateAsync: createUserAccount, isPending: isCreatingAccount } = useCreateUserAccount();
+  const {mutateAsync: signInAccount, isPending: isSigningInUser } = useSignInAccount();
 
-  // 2. define a submit handler.
-  async function onSubmit(values: z.infer<typeof SignupValidation>) {
-    //create a user account.
-   const newUser = await createUserAccount(values);
-   
-    if(!newUser) {
-      return toast({
-        title: 'Sign up failed. Please try again.'
+  // Handler.
+  const handeleSignup = async (user: z.infer<typeof SignupValidation>) => {
+    try {
+      //create a user account.
+      const newUser = await createUserAccount(user);
+     
+      if(!newUser) {
+        toast({ title: "Sign up failed. Please try again.", });
+
+        return;
+      }
+      
+      const session = await signInAccount({
+      email: user.email,
+       password: user.password,
       });
-    }
+ 
+      if(!session) {
+       toast({ title: "Sign up failed. Please try again.", });
 
-     const session = await signInAccount({
-      email: values.email,
-      password: values.password,
-     })
+       navigate("/sign-in");
 
-     if(!session) {
-      return toast({ title: 'Sign up failed. Please try again.'})
-     }
-
-     const isLoggedIn = await checkAuthUser();
-
-     if(isLoggedIn) {
-      form.reset();
-
-      navigate('/')
+       return;
+      }
+ 
+      const isLoggedIn = await checkAuthUser();
+ 
+      if(isLoggedIn) {
+       form.reset();
+ 
+       navigate('/')
      } else {
-      return toast({ title: 'Sign up failed. Please try again.'})
-     }
+       toast({ title: "Sign up failed. Please try again.", });
 
-
-   }
+       return;
+       }
+      } catch (error) {
+        console.log({ error });
+      }
+    };
 
   return (
     <Form {...form}>
@@ -73,11 +82,13 @@ const SignupForm = () => {
         <img src="/assets/images/logo-bg-0.png" alt="logo" />
 
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
-          Create a new account</h2>
-          <p className="text-black small-medium md:base-regular mt-2">
-            Too use Shapes, please create your account</p>
+          Create a new account
+        </h2>
+        <p className="text-black small-medium md:base-regular mt-2">
+           Too use Shapes, please enter your details
+        </p>
 
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 w-full mt-4">
+        <form onSubmit={form.handleSubmit(handeleSignup)} className="flex flex-col gap-5 w-full mt-4">
           <FormField // #1 name
             control={form.control}
             name="name"
@@ -138,21 +149,28 @@ const SignupForm = () => {
             )}
             
           />
+
           <Button type="submit" className="shad-button_primary">
-            {isCreatingUser ? (
+            {isCreatingAccount || isSigningInUser || isUserLoading ? (
               <div className="flex-center gap-2">
                 <Loader /> Loading...
               </div>
-            ):"Sign up"}
+            ) : (
+              "Sign Up"
+            )}
           </Button>
+
           <p className="text-small-regular text-black text-center mt-2">
             Already have a account? 
-            <Link to="/sign-in" className="text-primary-500" text-small-semibold ml-1> Sign in</Link>
+            <Link to="/sign-in" 
+            className="text-primary-500" text-small-semibold ml-1> 
+            Sign in
+            </Link>
           </p>
         </form>
       </div>
     </Form>
-  )
-}
+  );
+};
 
 export default SignupForm
