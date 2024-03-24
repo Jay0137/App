@@ -1,30 +1,11 @@
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
+import {useQuery, useMutation, useQueryClient,
   useInfiniteQuery,
 } from "@tanstack/react-query";
 
 import { QUERY_KEYS } from "@/lib/react-query/queryKeys";
-import {
-  createUserAccount,
-  signInAccount,
-  getCurrentUser,
-  signOutAccount,
-  getUsers,
-  createPost,
-  getPostById,
-  updatePost,
-  getUserPosts,
-  deletePost,
-  likePost,
-  getUserById,
-  updateUser,
-  getRecentPosts,
-  getInfinitePosts,
-  searchPosts,
-  savePost,
-  deleteSavedPost,
+
+import {  createUserAccount, SignInAccount, getCurrentUser, signOutAccount, getUsers, createPost, getPostById, updatePost, getUserPosts,
+   deletePost, likePost, getUserById, updateUser, getRecentPosts, getInfinitePosts, searchPosts, savePost, deleteSavedPost,
 } from "@/lib/appwrite/api";
 import { INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
 
@@ -41,7 +22,7 @@ export const useCreateUserAccount = () => {
 export const useSignInAccount = () => {
   return useMutation({
     mutationFn: (user: { email: string; password: string }) =>
-      signInAccount(user),
+      SignInAccount(user),
   });
 };
 
