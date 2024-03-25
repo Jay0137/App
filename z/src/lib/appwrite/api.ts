@@ -1,8 +1,11 @@
-import { ID } from 'appwrite';
+import { ID, Query } from "appwrite";
 
+import { appwriteConfig, account, databases, storage, avatars } from "./config";
 import { IUpdatePost, INewPost, INewUser, IUpdateUser } from "@/types";
-import { account, appwriteConfig, avatars, databases } from './config';
-import { Query } from '@tanstack/react-query';
+
+// ============================================================
+// AUTH
+// ============================================================
 
 // ============================== SIGN UP
 export async function createUserAccount(user: INewUser) {
@@ -16,14 +19,14 @@ export async function createUserAccount(user: INewUser) {
 
         if(!newAccount) throw Error;
 
-        const avaterUrl = avatars.getInitials(user.name);
+        const avatarUrl = avatars.getInitials(user.name);
 
         const newUser = await saveUserToDB({
             accountId: newAccount.$id,
             name: newAccount.name,
             email: newAccount.email,
             username: user.username,
-            imageUrl: avaterUrl,
+            imageUrl: avatarUrl,
         })
 
         return newUser;
@@ -99,6 +102,7 @@ export async function getCurrentUser() {
   }
 }
 
+// ============================== SIGN out
 export async function signOutAccount() {
   try {
     const session = await account.deleteSession("current");
