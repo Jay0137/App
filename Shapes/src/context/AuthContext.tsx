@@ -5,12 +5,12 @@ import { IUser } from "@/types";
 import { getCurrentUser } from "@/lib/appwrite/api";
 
 export const INITIAL_USER = {
-  id: "",
-  name: "",
-  username: "",
-  email: "",
-  imageUrl: "",
-  bio: "",
+  id: '',
+  name: '',
+  username: '',
+  email: '',
+  imageUrl: '',
+  bio: '',
 };
 
 const INITIAL_STATE = {

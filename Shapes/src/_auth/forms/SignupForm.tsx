@@ -163,7 +163,7 @@ const SignupForm = () => {
           <p className="text-small-regular text-black text-center mt-2">
             Already have a account? 
             <Link to="/sign-in" 
-            className="text-primary-500" text-small-semibold ml-1> 
+            className="text-primary-500" text-small-semibold="true" ml-1="true"> 
             Sign in
             </Link>
           </p>
