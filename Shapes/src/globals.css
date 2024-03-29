@@ -10,7 +10,7 @@
   }
 
   body {
-    @apply bg-gray-200 text-black min-h-screen font-inter;
+    @apply bg-dark-1 text-white min-h-screen font-inter;
   }
 }
 
@@ -247,10 +247,10 @@
 }
 
 @layer components {
-  /* Shapes COMPONENTS */
+  /* SHADCN COMPONENTS */
   /* Form */
   .shad-form_label {
-    @apply text-black !important;
+    @apply text-white !important;
   }
 
   .shad-form_message {
@@ -258,7 +258,7 @@
   }
 
   .shad-input {
-    @apply h-10 bg-off-white border-none placeholder:text-light-4 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 !important;
+    @apply h-12 bg-dark-4 border-none placeholder:text-light-4 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 !important;
   }
 
   .shad-textarea {
@@ -267,7 +267,7 @@
 
   /* Button */
   .shad-button_primary {
-    @apply bg-blue-400 hover:bg-primary-500 text-black flex gap-2 !important;
+    @apply bg-primary-500 hover:bg-primary-500 text-light-1 flex gap-2 !important;
   }
 
   .shad-button_dark_4 {
@@ -277,16 +277,4 @@
   .shad-button_ghost {
     @apply flex gap-4 items-center justify-start hover:bg-transparent hover:text-white !important;
   }
-
-  /* testing */
-  /*Error mesage*/
-  .error-message {
-    @apply text-red;
-  }
-
-  /*box
-  .box-border{
-    @apply bg-black;
-  }*/
-
 }

@@ -138,7 +138,7 @@ export async function createPost(post: INewPost) {
     // Create post
     const newPost = await databases.createDocument(
       appwriteConfig.databaseId,
-      appwriteConfig.postCollectionId,
+      appwriteConfig.postCollectionId, //warn
       ID.unique(),
       {
         creator: post.userId,
