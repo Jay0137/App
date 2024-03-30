@@ -145,7 +145,6 @@ export async function createPost(post: INewPost) {
         caption: post.caption,
         imageUrl: fileUrl,
         imageId: uploadedFile.$id,
-        location: post.location,
         tags: tags,
       }
     );

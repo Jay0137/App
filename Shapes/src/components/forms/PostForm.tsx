@@ -20,14 +20,7 @@ type PostFormProps = {
   action: "Create" | "Update";
 };
 
-
 const PostForm = ({ post, action }: PostFormProps) => {
-  // Query
-  const { mutateAsync: createPost, isPending: isLoadingCreate } =
-    useCreatePost();
-  const { mutateAsync: updatePost, isPending: isLoadingUpdate } =
-    useUpdatePost();
-    
   const navigate = useNavigate();
   const { toast } = useToast();
   const { user } = useUserContext();
@@ -39,6 +32,12 @@ const PostForm = ({ post, action }: PostFormProps) => {
       tags: post ? post.tags.join(",") : "",
     },
   });
+
+  // Query
+  const { mutateAsync: createPost, isPending: isLoadingCreate } =
+    useCreatePost();
+  const { mutateAsync: updatePost, isPending: isLoadingUpdate } =
+    useUpdatePost();
 
   // Handler
   const handleSubmit = async (value: z.infer<typeof PostValidation>) => {
