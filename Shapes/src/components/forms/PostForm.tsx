@@ -21,6 +21,12 @@ type PostFormProps = {
 };
 
 const PostForm = ({ post, action }: PostFormProps) => {
+  // Query
+  const { mutateAsync: createPost, isPending: isLoadingCreate } =
+    useCreatePost();
+  const { mutateAsync: updatePost, isPending: isLoadingUpdate } =
+    useUpdatePost();
+
   const navigate = useNavigate();
   const { toast } = useToast();
   const { user } = useUserContext();
@@ -33,14 +39,20 @@ const PostForm = ({ post, action }: PostFormProps) => {
     },
   });
 
-  // Query
-  const { mutateAsync: createPost, isPending: isLoadingCreate } =
-    useCreatePost();
-  const { mutateAsync: updatePost, isPending: isLoadingUpdate } =
-    useUpdatePost();
-
   // Handler
   const handleSubmit = async (value: z.infer<typeof PostValidation>) => {
+     // ACTION = CREATE
+    const newPost = await createPost({
+      ...value,
+      userId: user.id,
+    });
+    
+    if (!newPost) {
+      toast({
+        title: `${action} post failed. Please try again.`,
+      });
+    }
+
     // ACTION = UPDATE
     if (post && action === "Update") {
       const updatedPost = await updatePost({
@@ -58,17 +70,6 @@ const PostForm = ({ post, action }: PostFormProps) => {
       return navigate(`/posts/${post.$id}`);
     }
 
-    // ACTION = CREATE
-    const newPost = await createPost({
-      ...value,
-      userId: user.id,
-    });
-
-    if (!newPost) {
-      toast({
-        title: `${action} post failed. Please try again.`,
-      });
-    }
     navigate("/");
   };
 
@@ -85,8 +86,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
               <FormLabel className="shad-form_label">Caption</FormLabel>
               <FormControl>
                 <Textarea
-                  className="shad-textarea custom-scrollbar"
-                  {...field}
+                  className="shad-textarea custom-scrollbar" {...field}
                 />
               </FormControl>
               <FormMessage className="shad-form_message" />
@@ -121,10 +121,9 @@ const PostForm = ({ post, action }: PostFormProps) => {
               </FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Art, Expression, Learn"
+                  placeholder="Art, AI, Gaming..."
                   type="text"
-                  className="shad-input"
-                  {...field}
+                  className="shad-input" {...field}
                 />
               </FormControl>
               <FormMessage className="shad-form_message" />

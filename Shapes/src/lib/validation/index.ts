@@ -31,3 +31,4 @@ export const PostValidation = z.object({
   file: z.custom<File[]>(),
   tags: z.string(),
 });
+// not create the post

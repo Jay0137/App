@@ -69,6 +69,7 @@ export const useGetRecentPosts = () => {
   });
 };
 
+// not creating the post
 export const useCreatePost = () => {
   const queryClient = useQueryClient();
   return useMutation({

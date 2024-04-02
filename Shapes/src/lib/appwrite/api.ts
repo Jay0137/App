@@ -178,14 +178,20 @@ export async function uploadFile(file: File) {
 // ============================== GET FILE URL
 export function getFilePreview(fileId: string) {
   try {
-    const fileUrl = storage.getFilePreview(
-      appwriteConfig.storageId,
-      fileId,
-      2000,
-      2000,
-      "top",
-      100
-    );
+  const fileUrl = storage.getFilePreview(
+  appwriteConfig.storageId,
+  fileId,
+  1800, // width, will be resized using this value.
+  0, // height, ignored when 0
+  'center', // crop center
+  60, // some compression
+  5, // border width
+  'CDCA30', // border color
+  15, // border radius
+  1, // full opacity
+  0, // no rotation
+  'FFFFFF', // background color
+  );
 
     if (!fileUrl) throw Error;
 
