@@ -60,7 +60,7 @@ const SigninForm = () => {
           Sign in into your account
         </h2>
 
-        <p className="text-black small-medium md:base-regular mt-2">
+        <p className="text-white small-medium md:base-regular mt-2">
           Too use Shapes, please enter your account
         </p>
 
@@ -107,7 +107,7 @@ const SigninForm = () => {
             )}
           </Button>
 
-          <p className="text-small-regular text-black text-center mt-2">
+          <p className="text-small-regular text-white text-center mt-2">
             Don't have a account?
             <Link to="/sign-up" 
             className="text-primary-500" text-small-semibold="true" ml-1="true"> 

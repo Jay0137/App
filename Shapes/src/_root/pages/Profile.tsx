@@ -1,11 +1,4 @@
-import {
-  Route,
-  Routes,
-  Link,
-  Outlet,
-  useParams,
-  useLocation,
-} from "react-router-dom";
+import { Route, Routes, Link, Outlet, useParams, useLocation } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import { LikedPosts } from "@/_root/pages";
@@ -39,6 +32,7 @@ const Profile = () => {
       </div>
     );
 
+
   return (
     <div className="profile-container">
       <div className="profile-inner_container">
@@ -61,7 +55,7 @@ const Profile = () => {
             </div>
 
             <div className="flex gap-8 mt-10 items-center justify-center xl:justify-start flex-wrap z-20">
-              <StatBlock value={currentUser.posts.length} label="Posts" />
+              
               <StatBlock value={20} label="Followers" />
               <StatBlock value={20} label="Following" />
             </div>

@@ -3,7 +3,8 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 
 import { AuthProvider } from "@/context/AuthContext";
-import { QueryProvider } from "@/lib/React-query/queryprovider"
+import { QueryProvider } from "@/lib/React-query/queryprovider";
+
 
 import App from "./App";
 

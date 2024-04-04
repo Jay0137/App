@@ -84,7 +84,7 @@ const SignupForm = () => {
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
           Create a new account
         </h2>
-        <p className="text-black small-medium md:base-regular mt-2">
+        <p className="text-white small-medium md:base-regular mt-2">
            Too use Shapes, please enter your details
         </p>
 
@@ -156,7 +156,7 @@ const SignupForm = () => {
             )}
           </Button>
 
-          <p className="text-small-regular text-black text-center mt-2">
+          <p className="text-small-regular text-white text-center mt-2">
             Already have a account? 
             <Link to="/sign-in" 
             className="text-primary-500" text-small-semibold="true" ml-1="true"> 
