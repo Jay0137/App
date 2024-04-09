@@ -1,0 +1,4 @@
+name: Admin
+username: Admin@admin.com
+Email: admin@admin.com
+pasword: admin123
